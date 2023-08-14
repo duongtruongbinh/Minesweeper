@@ -3,6 +3,7 @@
 from Solver.astar import solve_minesweeper_astar
 from Solver.bruteforce import solve_minesweeper_bruteforce
 from Solver.backtracking import solve_minesweeper_backtracking
+from Solver.pysat import PYSATSolver
 
 if __name__ == "__main__":
 
@@ -13,15 +14,15 @@ if __name__ == "__main__":
     print("4. A*")
 
     algorithm = int(input("Algorithm: "))
-    state = [[2, 0, 3, 0], [0, 4, 0, 0], [2, 0, 3, 0]]
+    state = [[2, 0, 0, 1], [2, 0, 3, 1], [1, 1, 1, 0]]
     print(state)
 
     if algorithm == 1:
         solution = solve_minesweeper_bruteforce(state)
     elif algorithm == 2:
         solution = solve_minesweeper_backtracking(state)
-    # elif algorithm == 3:
-    #     solution = solve_minesweeper_pysat(state)
+    elif algorithm == 3:
+        solution = PYSATSolver(state)
     elif algorithm == 4:
         solution = solve_minesweeper_astar(state)
 

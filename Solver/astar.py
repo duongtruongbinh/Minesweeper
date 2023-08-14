@@ -5,12 +5,10 @@ import heapq
 class AStarSolver(MinesweeperProblem):
     def __init__(self, state):
         super().__init__(state)
-        self.preprocess()
-        self.cnf = self.generate_cnf()
         
         self.frontier = []
+        self.frontier.append((1, []))
         self.explored = set()
-        self.frontier.append((self.heuristic([]), []))
 
     def to_string(self, node):
         # Convert node to string for storing in explored set
@@ -21,7 +19,7 @@ class AStarSolver(MinesweeperProblem):
         # Node stores the value of each cell that we think is true
         # Now we need to fill in the rest of the unknown_cells with false assumption
         model = set(node)
-        model.update(-val for val in self.unknown_cells if -val not in model)
+        model.update(-val for val in self.unknown_cells if val not in node)
         return sorted(model, key=abs)
 
     def heuristic(self, node):
@@ -30,7 +28,6 @@ class AStarSolver(MinesweeperProblem):
         model = self.complete_model(node)
         violated_clause_count = sum(1 for clause in self.cnf if not OR(clause).satisfy(model))
         return violated_clause_count
-
 
     def expand_node(self, node):
         # Generate children by adding one more variable to the node

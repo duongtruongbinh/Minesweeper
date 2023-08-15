@@ -7,7 +7,9 @@ class MinesweeperProblem:
         self.unknown_cells = set()
         self.state = state
         self.rows, self.cols = len(state), len(state[0])
-
+        self.preprocess()
+        self.cnf = self.generate_cnf()
+        
     def preprocess(self):
         for i in range(self.rows):
             for j in range(self.cols):
@@ -44,7 +46,6 @@ class MinesweeperProblem:
         return neighbors
 
     def generate_cnf(self):
-        cnf_clauses = []
         # Known cell's value is the number of bombs in its neighbors
         # A cell is true if it is a bomb, false if it is not
         # Example: 2 bombs in 5 neighbors {1,2,3,4,5}
@@ -54,6 +55,7 @@ class MinesweeperProblem:
         # At most 2 bombs in 5 neighbors: [[-1,-2,-3], [-1,-2,-4], [-1,-3,-4], [-2,-3,-4]]
         # => CNF clauses: [[1,2,3,4], [1,2,3,5], [1,2,4,5], [1,3,4,5], [2,3,4,5], [-1,-2,-3], [-1,-2,-4], [-1,-3,-4], [-2,-3,-4]]
         # generally: At least k bombs in n neighbors: C(n,n-k+1) and at most k bombs in n neighbors: C(n,k+1)
+        cnf_clauses = []
         for i, j in self.known_cells.keys():
             neighbors = self.get_unknown_neighbors(i, j)
 

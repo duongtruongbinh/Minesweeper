@@ -6,8 +6,6 @@ from Problem.minesweeper_problem import MinesweeperProblem
 class PYSATSolver(MinesweeperProblem):
     def __init__(self, state) -> None:
         super().__init__(state)
-        self.preprocess()
-        self.cnf = self.generate_cnf()
 
     def solve(self):
         cnf = CNF(from_clauses=self.cnf)

@@ -4,6 +4,7 @@ def read_state(file_path):
 
     return [list(map(int, line.strip().split(","))) for line in lines]
 
+
 def output_solution(model, problem):
     with open("Project_2/output.txt", "w") as fout:
         if model is None:
@@ -19,6 +20,3 @@ def output_solution(model, problem):
         for row in problem:
             fout.write(",".join(map(lambda x: "*" if x == -1 else str(x), row)))
             fout.write("\n")
-
-# cnf_representation = solve_minesweeper_cnf(pro)
-# print(cnf_representation)

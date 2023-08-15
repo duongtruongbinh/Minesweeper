@@ -1,4 +1,4 @@
-class OR:
+class CNFCLause:
     def __init__(self, literals):
         # Every literal in the clause disjunction with each other
         self.literals = set(literals)
@@ -8,13 +8,13 @@ class OR:
         return any(lit in model for lit in self.literals)
 
 
-class CNFs:
+class CNFSentence:
     def __init__(self):
         # Every clause in the CNF conjunction with each other
         self.clauses = []
 
     def add_clause(self, clause):
-        self.clauses.append(OR(clause))
+        self.clauses.append(CNFCLause(clause))
 
     def satisfy(self, model):
         # If at least one clause is false, the CNF is false

@@ -1,6 +1,6 @@
-from itertools import combinations
 from Problem.minesweeper_problem import MinesweeperProblem
 from Problem.cnf import *
+
 
 class BacktrackingSolver(MinesweeperProblem):
     def __init__(self, state):
@@ -17,7 +17,7 @@ class BacktrackingSolver(MinesweeperProblem):
         # Calculate the heuristic by counting the number of violated clauses
         # We only calculate the heuristic for the model that we think is true
         model = self.complete_model(assignment)
-        return sum(1 for clause in self.cnf if OR(clause).satisfy(model))
+        return sum(1 for clause in self.cnf if CNFCLause(clause).satisfy(model))
     # def get_position(self, x, y):
     #     return x * self.cols + y + 1
 
@@ -43,17 +43,17 @@ class BacktrackingSolver(MinesweeperProblem):
     #         self.rows) for j in range(self.cols) if self.state[i][j] == -1]
     #     return self.is_combination_valid(self.solution)
 
-    def recursive_solve(self, assignment, countSatifiedClauses = 0):
+    def solve(self, assignment, countSatifiedClauses=0):
         if countSatifiedClauses == len(self.cnf):
             return assignment
-        
+
         unassigned = list(self.unknown_cells - set(assignment))
 
         while unassigned:
             assignment.append(unassigned.pop(0))
             count = self.count_satisfied_clauses(assignment)
             if count > countSatifiedClauses:
-                solution = self.recursive_solve(assignment, count)
+                solution = self.solve(assignment, count)
                 if solution:
                     return solution
             assignment.pop()
@@ -70,4 +70,4 @@ class BacktrackingSolver(MinesweeperProblem):
 
 def solve_minesweeper_backtracking(state):
     solver = BacktrackingSolver(state)
-    return solver.recursive_solve([])
+    return solver.solve([])

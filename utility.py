@@ -9,7 +9,7 @@ def read_state(file_path):
     with open(file_path, "r") as f:
         lines = f.readlines()
 
-    return [list(map(int, line.strip().split(","))) for line in lines]
+    return [[int(cell[0]) for cell in line.split(" ")] for line in lines]
 
 
 def output_solution(model, problem):

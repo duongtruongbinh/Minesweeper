@@ -29,6 +29,19 @@ class BruteForceSolver(MinesweeperProblem):
                 if self.isValid(assignment):
                     return combination
         return None
+ # def get_position(self, x, y):
+    #     return x * self.cols + y + 1
+
+    # def is_combination_valid(self, combination):
+    #     for i, j in self.known_cells.keys():
+    #         neighbors = self.get_unknown_neighbors(i, j)
+    #         num_bombs_around = self.known_cells[(i, j)]
+
+    #         count = sum(1 for x, y in neighbors if self.get_position(x, y) in combination)
+
+    #         if count != num_bombs_around:
+    #             return False
+    #     return True
 
 
 def solve_minesweeper_bruteforce(state):

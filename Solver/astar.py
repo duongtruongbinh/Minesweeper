@@ -2,13 +2,12 @@ from Problem.minesweeper_problem import MinesweeperProblem
 from Problem.cnf import *
 import heapq
 
-
 class AStarSolver(MinesweeperProblem):
     def __init__(self, state):
         super().__init__(state)
 
         self.frontier = []
-        self.frontier.append((1, []))
+        self.frontier.append((self.heuristic([]), []))
         self.explored = set()
 
     def to_string(self, node):

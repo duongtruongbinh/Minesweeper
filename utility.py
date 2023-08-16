@@ -1,3 +1,9 @@
+from Solver.pysat import solve_minesweeper_pysat
+from Solver.astar import solve_minesweeper_astar
+from Solver.bruteforce import solve_minesweeper_bruteforce
+from Solver.backtracking import solve_minesweeper_backtracking
+import time
+
 def read_state(file_path):
     with open(file_path, "r") as f:
         lines = f.readlines()
@@ -20,8 +26,6 @@ def output_solution(model, problem):
         for row in problem:
             fout.write(",".join(map(lambda x: "*" if x == -1 else str(x), row)))
             fout.write("\n")
-<<<<<<< Updated upstream
-=======
 
 
 def main_function():
@@ -71,4 +75,3 @@ def main_function():
 
     else:
         print('No solution')
->>>>>>> Stashed changes

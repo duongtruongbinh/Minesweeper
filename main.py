@@ -4,7 +4,6 @@ from Solver.astar import solve_minesweeper_astar
 from Solver.bruteforce import solve_minesweeper_bruteforce
 from Solver.backtracking import solve_minesweeper_backtracking
 
-
 if __name__ == "__main__":
 
     print("Choose the algorithm:")

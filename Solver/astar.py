@@ -28,7 +28,7 @@ class AStarSolver(MinesweeperProblem):
         # We only calculate the heuristic for the model that we think is true
         model = self.complete_model(node)
         violated_clause_count = sum(
-            1 for clause in self.cnf if not CNFCLause(clause).satisfy(model))
+            1 for clause in self.cnf if not CNFClause(clause).satisfy(model))
         return violated_clause_count
 
     def expand_node(self, node):

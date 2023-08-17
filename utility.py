@@ -19,8 +19,9 @@ def output_solution(solution, state, size):
                 print(",".join(map(lambda x: "*" if x == -1 else str(x), row)))
                 fout.write(
                     ",".join(map(lambda x: "*" if x == -1 else str(x), row)))
+                fout.write("\n")
             print()
-            fout.write("\n")
+
         else:
             print('No solution')
             fout.write("No solution")

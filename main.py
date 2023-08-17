@@ -14,7 +14,9 @@ if __name__ == "__main__":
     print("4. A*")
 
     algorithm = int(input("Enter the number of the algorithm: "))
-    state = utility.read_state("testcases/3x3.txt")
+    filename = input("File test case input:")
+    state = utility.read_state(filename)
+    size = len(state)
     print("Input: ")
 
     for row in state:
@@ -22,7 +24,7 @@ if __name__ == "__main__":
     print()
 
     time_start = time.time()
-    
+
     if algorithm == 1:
         solution = solve_minesweeper_bruteforce(state)
     elif algorithm == 2:
@@ -36,17 +38,4 @@ if __name__ == "__main__":
 
     print("Time: " + str(time_end - time_start))
 
-    if solution:
-        print("Solution found")
-        for assignment in solution:
-            if assignment > 0:
-                i = (assignment - 1) // len(state[0])
-                j = (assignment - 1) % len(state[0])
-                state[i][j] = -1
-
-        for row in state:
-            print(",".join(map(lambda x: "*" if x == -1 else str(x), row)))
-        print()
-
-    else:
-        print('No solution')
+    utility.output_solution(solution, state, size)

@@ -14,7 +14,7 @@ if __name__ == "__main__":
     print("4. A*")
 
     algorithm = int(input("Enter the number of the algorithm: "))
-    filename = input("File test case input:")
+    filename = input("File test case input: ")
     state = utility.read_state(filename)
     size = len(state)
     print("Input: ")
@@ -36,6 +36,6 @@ if __name__ == "__main__":
 
     time_end = time.time()
 
-    print("Time: " + str(time_end - time_start))
+    print(f"Time: {(time_end - time_start):0.9f}s")
 
     utility.output_solution(solution, state, size)

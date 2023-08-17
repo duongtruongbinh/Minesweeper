@@ -9,12 +9,7 @@ class AStarSolver(MinesweeperProblem):
 
         self.frontier = []
         self.frontier.append((1, []))
-        self.explored = set()
-
-    def to_string(self, node):
-        # Convert node to string for storing in explored set
-        node_str = ' '.join(map(str, sorted(node, key=abs)))
-        return node_str
+        self.explored = []
 
     def complete_model(self, node: list):
         # Node stores the value of each cell that we think is true
@@ -33,28 +28,25 @@ class AStarSolver(MinesweeperProblem):
 
     def expand_node(self, node):
         # Generate children by adding one more variable to the node
-        marked = set(node)
         children = [node + [val]
-                    for val in self.unknown_cells if val not in marked]
+                    for val in self.unknown_cells if val not in node]
         return children
 
     def solve(self):
         while self.frontier:
-            cost, node = heapq.heappop(self.frontier)
+            _, node = heapq.heappop(self.frontier)
 
             heuristic = self.heuristic(node)
-            cost -= heuristic
 
             if heuristic == 0:
                 return node
 
-            self.explored.add(self.to_string(node))
+            self.explored.append(node)
 
             for child in self.expand_node(node):
-                child_string = self.to_string(child)
-                if child_string not in self.explored:
+                if child not in self.explored:
                     self.frontier.append(
-                        (self.heuristic(child) + cost + 1, child))
+                        (self.heuristic(child), child))
 
             heapq.heapify(self.frontier)
         return None

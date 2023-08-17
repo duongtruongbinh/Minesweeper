@@ -1,6 +1,5 @@
 from itertools import combinations
 
-
 class MinesweeperProblem:
     def __init__(self, state):
         self.known_cells = dict()

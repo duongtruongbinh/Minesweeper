@@ -30,9 +30,10 @@ class AStarSolver(MinesweeperProblem):
         self.explored = set()
 
         while self.frontier:
-            node = self.frontier.get()[1]
+            cost, node = self.frontier.get()
 
             heuristic = self.heuristic(node)
+            cost -= heuristic
 
             if heuristic == 0:
                 return node
@@ -42,7 +43,7 @@ class AStarSolver(MinesweeperProblem):
             for child in self.expand_node(node):
                 child_string = self.to_string(child)
                 if child_string not in self.explored:
-                    self.frontier.put((self.heuristic(child), child))
+                    self.frontier.put((self.heuristic(child) + cost + 1, child))
 
         return None
 

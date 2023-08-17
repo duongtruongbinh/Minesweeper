@@ -3,7 +3,7 @@ from Solver.pysat import solve_minesweeper_pysat
 from Solver.astar import solve_minesweeper_astar
 from Solver.bruteforce import solve_minesweeper_bruteforce
 from Solver.backtracking import solve_minesweeper_backtracking
-
+import time
 
 if __name__ == "__main__":
 
@@ -21,6 +21,8 @@ if __name__ == "__main__":
         print(",".join(map(str, row)))
     print()
 
+    time_start = time.time()
+    
     if algorithm == 1:
         solution = solve_minesweeper_bruteforce(state)
     elif algorithm == 2:
@@ -29,6 +31,10 @@ if __name__ == "__main__":
         solution = solve_minesweeper_pysat(state)
     elif algorithm == 4:
         solution = solve_minesweeper_astar(state)
+
+    time_end = time.time()
+
+    print("Time: " + str(time_end - time_start))
 
     if solution:
         print("Solution found")

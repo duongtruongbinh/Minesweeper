@@ -17,7 +17,7 @@ class BacktrackingSolver(MinesweeperProblem):
         # Calculate the heuristic by counting the number of violated clauses
         # We only calculate the heuristic for the model that we think is true
         model = self.complete_model(assignment)
-        return sum(1 for clause in self.cnf if CNFCLause(clause).satisfy(model))
+        return sum(1 for clause in self.cnf if CNFClause(clause).satisfy(model))
 
     def solve(self, assignment, countSatifiedClauses=0):
         if countSatifiedClauses == len(self.cnf):

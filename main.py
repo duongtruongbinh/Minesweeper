@@ -14,7 +14,7 @@ if __name__ == "__main__":
     print("4. A*")
 
     algorithm = int(input("Enter the number of the algorithm: "))
-    state = utility.read_state("input.txt")
+    state = utility.read_state("testcases/3x3.txt")
     print("Input: ")
 
     for row in state:

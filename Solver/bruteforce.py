@@ -18,7 +18,7 @@ class BruteForceSolver(MinesweeperProblem):
         # Calculate the heuristic by counting the number of violated clauses
         # We only calculate the heuristic for the model that we think is true
         model = self.complete_model(assignment)
-        return all(CNFCLause(clause).satisfy(model) for clause in self.cnf)
+        return all(CNFClause(clause).satisfy(model) for clause in self.cnf)
 
     def solve(self):
         for num_bombs in range(1, len(self.unknown_cells) + 1):

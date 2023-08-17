@@ -1,4 +1,4 @@
-class CNFCLause:
+class CNFClause:
     def __init__(self, literals):
         # Every literal in the clause disjunction with each other
         self.literals = set(literals)
@@ -14,7 +14,7 @@ class CNFSentence:
         self.clauses = []
 
     def add_clause(self, clause):
-        self.clauses.append(CNFCLause(clause))
+        self.clauses.append(CNFClause(clause))
 
     def satisfy(self, model):
         # If at least one clause is false, the CNF is false

@@ -20,7 +20,16 @@ class BruteForceSolver(MinesweeperProblem):
         model = self.complete_model(assignment)
         return all(CNFCLause(clause).satisfy(model) for clause in self.cnf)
 
-    # def get_position(self, x, y):
+    def solve(self):
+        for num_bombs in range(1, len(self.unknown_cells) + 1):
+            for combination in combinations(self.unknown_cells, num_bombs):
+                # if self.is_combination_valid(combination):
+                #     return combination
+                assignment = list(combination)
+                if self.isValid(assignment):
+                    return combination
+        return None
+ # def get_position(self, x, y):
     #     return x * self.cols + y + 1
 
     # def is_combination_valid(self, combination):
@@ -33,16 +42,6 @@ class BruteForceSolver(MinesweeperProblem):
     #         if count != num_bombs_around:
     #             return False
     #     return True
-
-    def solve(self):
-        for num_bombs in range(1, len(self.unknown_cells) + 1):
-            for combination in combinations(self.unknown_cells, num_bombs):
-                # if self.is_combination_valid(combination):
-                #     return combination
-                assignment = list(combination)
-                if self.isValid(assignment):
-                    return combination
-        return None
 
 
 def solve_minesweeper_bruteforce(state):

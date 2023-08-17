@@ -13,11 +13,22 @@ class BacktrackingSolver(MinesweeperProblem):
         valid_clause_count = sum(1 for clause in self.cnf if CNFClause(clause).satisfy(model))
         return valid_clause_count
     
+    def get_known_neighbors(self, i):
+        maxIndex = self.rows * self.cols
+        adjIndex = [
+            *range(i - self.cols - 1 if (i - self.cols - 1) >= 0 else 0, i - self.cols + 1),
+            *range(i - 1 if (i - 1) >= 0 else 0, i + 1),
+            *range(i + self.cols - 1, i + self.cols if (i + self.cols + 1) < maxIndex else maxIndex - 1)
+        ]
+        adjIndex.remove(i)
+        return [index for index in adjIndex if index not in self.unknown_cells]
+
     def solve(self, assignment, unknownCells, countValid=0):
         if countValid == len(self.cnf):
             return assignment
 
         unassigned = unknownCells - set(assignment)
+        unassigned = sorted(unassigned, key=lambda x: -len(self.get_known_neighbors(x)))
         assign_removed = set()
 
         for assign in unassigned:

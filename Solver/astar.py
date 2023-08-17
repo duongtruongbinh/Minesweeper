@@ -6,7 +6,6 @@ class AStarSolver(MinesweeperProblem):
     def __init__(self, state):
         super().__init__(state)
 
-
     def to_string(self, node):
         # Convert node to string for storing in explored set
         node_str = ' '.join(map(str, sorted(node, key=abs)))
@@ -19,7 +18,6 @@ class AStarSolver(MinesweeperProblem):
         model.update(-val for val in self.unknown_cells if -val not in model)
         violated_clause_count = sum(1 for clause in self.cnf if not CNFClause(clause).satisfy(model))
         return violated_clause_count
-
 
     def expand_node(self, node):
         # Generate children by adding one more variable to the node

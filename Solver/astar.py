@@ -15,7 +15,7 @@ class AStarSolver(MinesweeperProblem):
         # Calculate the heuristic by counting the number of violated clauses
         # We only calculate the heuristic for the model that we think is true
         model = set(node)
-        model.update(-val for val in self.unknown_cells if -val not in model)
+        model.update(-val for val in self.unknown_cells if val not in model)
         violated_clause_count = sum(1 for clause in self.cnf if not CNFClause(clause).satisfy(model))
         return violated_clause_count
 

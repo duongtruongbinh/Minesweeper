@@ -1,6 +1,6 @@
 from Problem.minesweeper_problem import MinesweeperProblem
 from Problem.cnf import *
-from queue import PriorityQueue
+import heapq
 
 class AStarSolver(MinesweeperProblem):
     def __init__(self, state):
@@ -25,12 +25,14 @@ class AStarSolver(MinesweeperProblem):
         return children
 
     def solve(self):
-        self.frontier = PriorityQueue()
-        self.frontier.put((1, []))
+        # self.frontier = PriorityQueue()
+        # self.frontier.put((1, []))
+        self.frontier = []
+        self.frontier.append((1, []))
         self.explored = set()
 
         while self.frontier:
-            cost, node = self.frontier.get()
+            cost, node = heapq.heappop(self.frontier)
 
             heuristic = self.heuristic(node)
             cost -= heuristic
@@ -43,8 +45,9 @@ class AStarSolver(MinesweeperProblem):
             for child in self.expand_node(node):
                 child_string = self.to_string(child)
                 if child_string not in self.explored:
-                    self.frontier.put((self.heuristic(child) + cost + 1, child))
-
+                    self.frontier.append((self.heuristic(child) + cost + 1, child))
+                    #self.frontier.put((self.heuristic(child) + cost + 1, child))
+        heapq.heapify(self.frontier)
         return None
 
 def solve_minesweeper_astar(state):
